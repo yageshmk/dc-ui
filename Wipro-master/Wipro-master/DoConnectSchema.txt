@@ -1,0 +1,63 @@
+
+--{Doconnect
+
+-Admin
+-Answer
+-ImageModel
+-Question
+-User
+}
+
+CREATE database doconnect;
+
+CREATE TABLE `admin` (
+   `id` bigint NOT NULL,
+   `email` varchar(255) DEFAULT NULL,
+   `is_active` bit(1) DEFAULT NULL,
+   `name` varchar(255) DEFAULT NULL,
+   `password` varchar(255) DEFAULT NULL,
+   `phone_number` varchar(10) DEFAULT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `answer` (
+   `id` bigint NOT NULL,
+   `answer` varchar(255) DEFAULT NULL,
+   `is_approved` bit(1) DEFAULT NULL,
+   `answer_user_id` bigint DEFAULT NULL,
+   `question_id` bigint DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   KEY `FKj0qw8d6x09hesrrr7ksxm6t2f` (`answer_user_id`),
+   KEY `FK8frr4bcabmmeyyu60qt7iiblo` (`question_id`),
+   CONSTRAINT `FK8frr4bcabmmeyyu60qt7iiblo` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+   CONSTRAINT `FKj0qw8d6x09hesrrr7ksxm6t2f` FOREIGN KEY (`answer_user_id`) REFERENCES `user` (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `image_model` (
+   `id` bigint NOT NULL,
+   `name` varchar(255) DEFAULT NULL,
+   `pic_byte` blob,
+   `type` varchar(255) DEFAULT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `question` (
+   `id` bigint NOT NULL,
+   `is_approved` bit(1) DEFAULT NULL,
+   `question` varchar(255) DEFAULT NULL,
+   `topic` varchar(255) DEFAULT NULL,
+   `user_id` bigint DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   KEY `FK4ekrlbqiybwk8abhgclfjwnmc` (`user_id`),
+   CONSTRAINT `FK4ekrlbqiybwk8abhgclfjwnmc` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `user` (
+   `id` bigint NOT NULL,
+   `email` varchar(255) DEFAULT NULL,
+   `is_active` bit(1) DEFAULT NULL,
+   `name` varchar(255) DEFAULT NULL,
+   `password` varchar(255) DEFAULT NULL,
+   `phone_number` varchar(10) DEFAULT NULL,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
